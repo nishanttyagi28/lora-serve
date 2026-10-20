@@ -8,46 +8,55 @@
       "accuracy": 0.0,
       "json_valid_rate": 0.0,
       "n": 300,
-      "latency_ms_p50": 368.87228550040163,
-      "latency_ms_p95": 736.8981940016965,
-      "batch_eval_seconds": 25.392151845000626,
+      "latency_ms_p50": 431.69569650126505,
+      "latency_ms_p95": 473.38551899883896,
+      "batch_eval_seconds": 38.09337386099651,
       "weights_mb": 538.167007
     },
     "base_few_shot": {
       "accuracy": 0.55,
       "json_valid_rate": 0.8933333333333333,
       "n": 300,
-      "latency_ms_p50": 214.67694549937733,
-      "latency_ms_p95": 271.5566260012565,
-      "batch_eval_seconds": 38.95576431899826,
+      "latency_ms_p50": 178.17876349727158,
+      "latency_ms_p95": 204.43832699675113,
+      "batch_eval_seconds": 30.47285528700013,
       "weights_mb": 538.167007
     },
     "lora": {
       "accuracy": 0.8733333333333333,
       "json_valid_rate": 1.0,
       "n": 300,
-      "latency_ms_p50": 203.4344419989793,
-      "latency_ms_p95": 265.0200580028468,
-      "batch_eval_seconds": 28.4290010850018,
+      "latency_ms_p50": 201.1753195001802,
+      "latency_ms_p95": 247.19926500256406,
+      "batch_eval_seconds": 23.35393621899857,
       "weights_mb": 558.044375
     },
     "lora_merged_fp32": {
       "accuracy": 0.8733333333333333,
       "json_valid_rate": 1.0,
       "n": 300,
-      "latency_ms_p50": 134.2256419993646,
-      "latency_ms_p95": 189.63763300416758,
-      "batch_eval_seconds": 17.532769967001514,
+      "latency_ms_p50": 183.80565249754,
+      "latency_ms_p95": 643.0741530057276,
+      "batch_eval_seconds": 24.399316799004737,
       "weights_mb": 538.167007
     },
-    "lora_merged_int8": {
-      "accuracy": 0.22666666666666666,
-      "json_valid_rate": 0.33666666666666667,
+    "lora_merged_int8_weight_only": {
+      "accuracy": 0.87,
+      "json_valid_rate": 1.0,
       "n": 300,
-      "latency_ms_p50": 100.16277149770758,
-      "latency_ms_p95": 145.90934699663194,
-      "batch_eval_seconds": 17.04528160799964,
-      "weights_mb": 248.137617
+      "latency_ms_p50": 154.65524200044456,
+      "latency_ms_p95": 198.6311310029123,
+      "batch_eval_seconds": 16.03803087999404,
+      "weights_mb": 220.349371
+    },
+    "lora_merged_int8_dynamic": {
+      "accuracy": 0.25333333333333335,
+      "json_valid_rate": 0.3566666666666667,
+      "n": 300,
+      "latency_ms_p50": 117.05181000434095,
+      "latency_ms_p95": 327.8046589985024,
+      "batch_eval_seconds": 23.322156062997237,
+      "weights_mb": 219.825175
     }
   },
   "train": {
