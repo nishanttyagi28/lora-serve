@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import random
 import time
 from pathlib import Path
@@ -74,7 +75,7 @@ def main(argv=None):
     steps = args.epochs * ((len(examples) + args.batch_size - 1) // args.batch_size)
     sched = torch.optim.lr_scheduler.LambdaLR(opt, lambda s: max(0.0, 1 - s / steps))
 
-    mlflow.set_tracking_uri("file:./mlruns")
+    mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI", "sqlite:///mlflow.db"))
     mlflow.set_experiment("lora-serve")
     with mlflow.start_run(run_name="lora-sft"):
         mlflow.log_params({**vars(args), "trainable_params": trainable, "total_params": total})

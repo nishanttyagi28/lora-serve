@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import statistics
 import time
 from pathlib import Path
@@ -59,7 +60,7 @@ def main(argv=None):
     torch.manual_seed(0)
     torch.set_num_threads(max(1, torch.get_num_threads()))
     _, test = load_splits(n_test=args.n_test)
-    mlflow.set_tracking_uri("file:./mlruns")
+    mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI", "sqlite:///mlflow.db"))
     mlflow.set_experiment("lora-serve")
     results = {"model": args.model, "dataset": "fancyzhx/ag_news", "n_test": len(test),
                "threads": torch.get_num_threads(), "variants": {}}
