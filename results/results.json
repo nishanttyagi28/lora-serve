@@ -1,0 +1,60 @@
+{
+  "model": "HuggingFaceTB/SmolLM2-135M-Instruct",
+  "dataset": "fancyzhx/ag_news",
+  "n_test": 300,
+  "threads": 8,
+  "variants": {
+    "base_zero_shot": {
+      "accuracy": 0.0,
+      "json_valid_rate": 0.0,
+      "n": 300,
+      "latency_ms_p50": 368.87228550040163,
+      "latency_ms_p95": 736.8981940016965,
+      "batch_eval_seconds": 25.392151845000626,
+      "weights_mb": 538.167007
+    },
+    "base_few_shot": {
+      "accuracy": 0.55,
+      "json_valid_rate": 0.8933333333333333,
+      "n": 300,
+      "latency_ms_p50": 214.67694549937733,
+      "latency_ms_p95": 271.5566260012565,
+      "batch_eval_seconds": 38.95576431899826,
+      "weights_mb": 538.167007
+    },
+    "lora": {
+      "accuracy": 0.8733333333333333,
+      "json_valid_rate": 1.0,
+      "n": 300,
+      "latency_ms_p50": 203.4344419989793,
+      "latency_ms_p95": 265.0200580028468,
+      "batch_eval_seconds": 28.4290010850018,
+      "weights_mb": 558.044375
+    },
+    "lora_merged_fp32": {
+      "accuracy": 0.8733333333333333,
+      "json_valid_rate": 1.0,
+      "n": 300,
+      "latency_ms_p50": 134.2256419993646,
+      "latency_ms_p95": 189.63763300416758,
+      "batch_eval_seconds": 17.532769967001514,
+      "weights_mb": 538.167007
+    },
+    "lora_merged_int8": {
+      "accuracy": 0.22666666666666666,
+      "json_valid_rate": 0.33666666666666667,
+      "n": 300,
+      "latency_ms_p50": 100.16277149770758,
+      "latency_ms_p95": 145.90934699663194,
+      "batch_eval_seconds": 17.04528160799964,
+      "weights_mb": 248.137617
+    }
+  },
+  "train": {
+    "trainable_params": 4884480,
+    "total_params": 139399488,
+    "train_seconds": 397.3244740962982,
+    "steps": 150,
+    "final_loss": 0.055167604237794876
+  }
+}

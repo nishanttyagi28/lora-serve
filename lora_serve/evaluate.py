@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import copy
 import json
 import os
 import statistics
@@ -12,7 +13,15 @@ from pathlib import Path
 import torch
 
 from .data import load_splits
-from .modeling import BASE_MODEL, complete, load, prompt_text, quantize_int8, state_dict_mb
+from .modeling import (
+    BASE_MODEL,
+    complete,
+    load,
+    prompt_text,
+    quantize_dynamic_int8,
+    quantize_int8,
+    state_dict_mb,
+)
 from .task import parse_label
 
 
@@ -86,7 +95,8 @@ def main(argv=None):
     merged = lora.merge_and_unload()
     merged.eval()
     run("lora_merged_fp32", tok, merged)
-    run("lora_merged_int8", tok, quantize_int8(merged))
+    run("lora_merged_int8_weight_only", tok, quantize_int8(copy.deepcopy(merged)))
+    run("lora_merged_int8_dynamic", tok, quantize_dynamic_int8(merged))
 
     info = Path(args.adapter, "train_info.json")
     if info.exists():

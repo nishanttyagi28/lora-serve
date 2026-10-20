@@ -46,13 +46,37 @@ def test_lora_step_only_updates_adapters_and_merges():
     assert not any("lora_" in n for n, _ in merged.named_parameters())
 
 
-def test_int8_quantization_shrinks_and_runs():
-    from lora_serve.modeling import quantize_int8, state_dict_mb
+def test_int8_weight_only_close_to_fp32_and_smaller():
+    from lora_serve.modeling import Int8WeightLinear, quantize_int8, state_dict_mb
 
     m = tiny().eval()
-    q = quantize_int8(m)
     ids = torch.randint(0, 64, (1, 8))
     with torch.no_grad():
-        assert q(input_ids=ids).logits.shape == (1, 8, 64)
-    assert any(isinstance(x, torch.ao.nn.quantized.dynamic.Linear) for x in q.modules())
-    assert state_dict_mb(q) < state_dict_mb(m)
+        ref = m(input_ids=ids).logits
+    size = state_dict_mb(m)
+    q = quantize_int8(m)
+    with torch.no_grad():
+        out = q(input_ids=ids).logits
+    assert isinstance(q.model.layers[0].self_attn.q_proj, Int8WeightLinear)
+    assert isinstance(q.lm_head, torch.nn.Linear)
+    assert torch.allclose(out, ref, atol=0.05)
+    assert state_dict_mb(q) < size
+
+
+def test_int8_weight_rows_scaled():
+    from lora_serve.modeling import Int8WeightLinear
+
+    lin = torch.nn.Linear(16, 4)
+    q = Int8WeightLinear(lin)
+    assert q.qweight.dtype == torch.int8 and q.qweight.abs().max() <= 127
+    x = torch.randn(3, 16)
+    assert torch.allclose(q(x), lin(x), atol=0.02)
+
+
+def test_dynamic_int8_runs():
+    from lora_serve.modeling import quantize_dynamic_int8
+
+    q = quantize_dynamic_int8(tiny().eval())
+    with torch.no_grad():
+        assert q(input_ids=torch.randint(0, 64, (1, 8))).logits.shape == (1, 8, 64)
+    assert isinstance(q.model.layers[0].mlp.up_proj, torch.ao.nn.quantized.dynamic.Linear)
