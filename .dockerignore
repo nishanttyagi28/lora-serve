@@ -1,0 +1,6 @@
+.git
+.venv*
+mlruns
+results
+tests
+__pycache__

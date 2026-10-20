@@ -1,0 +1,15 @@
+# pinned versions used for the committed results (CPU wheels of torch)
+torch==2.14.1
+transformers==5.20.2
+peft==0.21.2
+datasets
+accelerate
+mlflow==3.17.1
+fastapi==0.151.0
+uvicorn
+prometheus-client
+jsonschema
+matplotlib
+pytest
+httpx
+ruff
