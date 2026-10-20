@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.venv*/
+mlruns/
+mlflow.db
+artifacts/
+*.safetensors
+*.bin
+*.pt
+.pytest_cache/
+.ruff_cache/
