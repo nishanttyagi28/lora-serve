@@ -15,7 +15,7 @@ Scoring is exact match on the parsed label; invalid JSON counts as wrong.
 ## Model and training
 
 - Base: `HuggingFaceTB/SmolLM2-135M-Instruct`, small enough to fine-tune on CPU.
-- LoRA (peft) r=16, alpha=32 on all attention and MLP projections, about 3% of parameters
+- LoRA (peft) r=16, alpha=32 on all attention and MLP projections, about 3.5% of parameters (4.9M of 139M)
   trainable. A hand-written PyTorch loop masks prompt tokens so loss covers only the answer.
 - 1,200 training examples, 1 epoch, batch 8, AdamW lr 2e-4 with linear decay.
 - QLoRA proper (4-bit base via bitsandbytes) needs a CUDA GPU, so it is not used here. The
