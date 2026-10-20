@@ -24,7 +24,8 @@ Scoring is exact match on the parsed label; invalid JSON counts as wrong.
 ## Comparison
 
 All variants run on the same 300 seeded test articles with greedy decoding:
-base zero-shot, base few-shot (4 examples), LoRA adapter, merged fp32, merged + dynamic int8.
+base zero-shot, base few-shot (4 examples), LoRA adapter, merged fp32, merged + weight-only
+int8, merged + dynamic int8. Up to 32 new tokens are decoded.
 Latency is measured at batch size 1 on the first 40 articles; size is the serialized
 state dict.
 
